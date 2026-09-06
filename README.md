@@ -1,38 +1,82 @@
-# CPSC-315-Smart-Home-LIbrary
- This project is designed to enhance your understanding of data structures, algorithms, and systems design while providing practical, hands-on experience. This guide will walk you through the project timeline, key components, and expectations to ensure your success.
+# Smart Library Management System - Module 4 Core Build
 
-The goal of the Smart Library Management System is to Create a C++ application that manages books, user accounts, borrowing and returning, reservations, and book recommendations.  The project will demonstrate the use of data structures and algorithms while producing a system that is organized, efficient, and easy to use.  
+C++17 console implementation for Modules 3 and 4 of the Smart Library Management System project.
 
-                                               Timeline 
+## Implemented in this build
 
-- Module 1: Define requirements, project scope, objectives, resources, and development plan.  Review has tables, linked lists, and searching algorithms
+- Custom separate-chaining hash table for exact ISBN lookup.
+- Second hash-table index for exact title lookup.
+- Linear substring title search to demonstrate why exact hashing and partial search are different access patterns.
+- 5,000 generated demo books with author, ISBN, title, publisher, year, illustrator, retail price, status, and shelf location.
+- 10 quadrants x 5 racks x 100 slots = 5,000 physical shelf positions.
+- Dynamic catalog: additional books can still be added after shelf capacity is reached, but they are marked `Unassigned / storage` until a slot opens.
+- Custom singly linked list for user account management.
+- System-wide increasing registration number; deleted registration numbers are never reused.
+- Username generation: `Last.First<registrationNumber><roleCode>`.
+  - Patron `00`
+  - Administrator `01`
+  - Librarian `02`
+  - Manager `03`
+- Role-based menus.
+- Patron self-account view and payment-display update.
+- Employees inherit patron capabilities and can add/remove/search inventory and see book locations.
+- Administrators manage users and inspect inventory summaries.
+- Merge sort by title, quicksort by author, and heap sort by publication year.
 
-- Module 2: Design the system architecture, Create UML diagrams, select data structures, and develop user interface mock ups.  
+## Intentionally deferred to Module 5+
 
-- Module 3-4: Develop the core book inventory and user account systems using hash tables and linked lists.
+- Checkout and return transactions.
+- Checkout history and current due dates.
+- Overdue calculations and forced payment screen.
+- Missing-book workflow.
+- Purchase-at-half-retail workflow.
+- Reservation queue.
+- Deadline priority queue / overdue heap.
+- Recommendation BST and graph.
+- Activity-log stack.
+- Huffman compression.
+- Password hashing / secure credential storage.
 
-- Module 5: Add borrowing, returning, reservations, overdue tracking, searching, and the recommendation system
+These features are deferred because the supplied course outline places borrowing/returns, queues, heaps, priority queues, trees, and graphs after the Module 3/4 core implementation. Security should use a proper salted password KDF rather than `std::hash` or a raw SHA hash.
 
-- Module 6: Perform unit and integration testing, debug errors, and improve system performance. 
+## Build with Visual Studio / CMake
 
-- Module 7: Complete technical/user documentation and improve the user interface
+Open the repository folder in Visual Studio 2022. Visual Studio should detect `CMakeLists.txt` automatically.
 
-- Module 8: Prepare final presentation make system ready for demonstration
+Command-line alternative:
 
-- Moudule 9: Complete final testing, submit all project materials, present the system, and review feedback.  
+```bash
+cmake -S . -B build
+cmake --build build --config Debug
+```
 
-                                            Milestones
-1. Requirements Complete: Project goals, users, features, and scope are clearly defined. 
-2. System Design Complete: UML diagrams, interface design, and data structure selections are completed. 
-3. Core System Functional: Book inventory and user account management operate correctly 
-4. Advanced Features Integrated: Borrowing, returns, reservations, overdue tracking, and recommendations are connected to the core system. 
-5. Testing Complete: Major errors are corrected and all components work together. 
-6. Documentation Complete: User instructions, technical documentation, and code comments are finalized. 
-7. Final System Complete: Application, documentation, and presentation are ready for submission. 
+On Linux/macOS:
 
-                                             Required Resources
+```bash
+./build/smart_library
+```
 
-- Visual Studio or Visual Studio Code for programming and debugging.
-- Git/GitHub for version control and tracking project changes.
-- UML/diagramming software such as Draw.io or Lucidchart.
-- Course materials and labs                                             
+On Windows with a multi-config generator, the executable is typically under:
+
+```text
+build/Debug/smart_library.exe
+```
+
+## Demo accounts
+
+The program prints all seeded demo usernames at startup. The generated format is based on registration order, for example:
+
+- `System.Admin101` = registration 1 + administrator code `01`
+- `Houston.Marcus200` = registration 2 + patron code `00`
+- `Morgan.Leah302` = registration 3 + librarian code `02`
+- `Brooks.Daniel403` = registration 4 + manager code `03`
+
+If Marcus Houston were the 300th registered patron, the generated username would be exactly:
+
+```text
+Houston.Marcus30000
+```
+
+## Design note: shelf capacity vs. unlimited additions
+
+The requested physical layout has exactly 5,000 shelf slots. That conflicts with unlimited physical shelving. This implementation keeps the **catalog dynamic** while respecting physical capacity: once all 5,000 positions are occupied, newly added books are stored as `Unassigned / storage`. When a shelved book is removed, its location becomes available again.

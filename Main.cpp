@@ -1,0 +1,19 @@
+// SmartHomeLibrarySystem.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+#include "LibrarySystem.h"
+
+#include <exception>
+#include <iostream>
+
+int main() {
+    try {
+        LibrarySystem system;
+        system.Run();
+        return 0;
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Fatal error: " << ex.what() << '\n';
+        return 1;
+    }
+}
+

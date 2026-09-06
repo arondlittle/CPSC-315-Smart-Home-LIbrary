@@ -1,0 +1,19 @@
+# CMake / build output
+build/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.user
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
