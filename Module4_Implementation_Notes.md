@@ -21,9 +21,7 @@
 | Patron self-service | Patron can view own account, update masked payment display data, and search/browse books. |
 | Administrator account management | Administrator can add/search/list/remove user accounts and inspect inventory. |
 
-## Features intentionally not implemented yet
-
-The following ideas are valid for the complete project but should **not** be part of the Module 3/4 deliverable because the course outline assigns their core data structures/algorithms to later modules:
+## Future Features
 
 - Checkout and return processing.
 - Checkout history and due dates.
@@ -38,8 +36,6 @@ The following ideas are valid for the complete project but should **not** be par
 - Huffman compression.
 - Password security implementation.
 
-The `BookStatus` enum already contains `Available`, `CheckedOut`, `Missing`, and `Purchased` so Module 5 can change status without replacing the book model.
-
 ## Design decisions where requirements conflict
 
 ### 5,000 physical slots versus unlimited additions
@@ -48,11 +44,8 @@ Ten quadrants x five racks x one hundred books equals exactly 5,000 physical pos
 
 ### Payment information
 
-The Module 4 program stores only the last four display digits. It does not store a complete card number, CVV, or other sensitive payment credential. A classroom library program should not simulate unsafe storage of payment-card secrets.
+The program stores only the last four display digits. It does not store a complete card number, CVV, or other sensitive payment credential. 
 
-### Password hashing
-
-No password format was specified in the UML description. A later security implementation should use a salted password KDF such as Argon2id, bcrypt, scrypt, or PBKDF2. `std::hash` and unsalted SHA hashing should not be presented as password security.
 
 ## Module 5 extension points
 
