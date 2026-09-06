@@ -1,6 +1,5 @@
-# Smart Library Management System - Module 4 Core Build
+# Smart Library Management System 
 
-C++ console implementation for Modules 3 and 4 of the Smart Library Management System project.
 
 ## Implemented in this build
 
