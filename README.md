@@ -37,6 +37,9 @@ C++ console implementation for Modules 3 and 4 of the Smart Library Management S
 - Huffman compression.
 - Password hashing / secure credential storage.
 
+## Diagram of Program Functionality
+
+<img width="3132" height="2392" alt="CamScanner 9-6-26 18 43" src="https://github.com/user-attachments/assets/f4fb70a7-2aba-44d7-bd00-9f82ec008f3c" />
 
 
 
